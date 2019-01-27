@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
+
 from django.contrib.auth import authenticate, login
+
+from users.forms import SignUpForm
 
 
 # Create your views here.
 def register(request): 
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         
         if form.is_valid():
             form.save()
@@ -17,8 +19,7 @@ def register(request):
             return redirect('/')
             
     else: 
-        form = UserCreationForm()
+        form = SignUpForm()
 
-    form = UserCreationForm()
     context = {'form' : form}
     return render(request, 'registration/signup.html', context)
